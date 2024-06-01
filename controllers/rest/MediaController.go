@@ -17,6 +17,13 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// UploadMedia
+// @Summary UploadMedia - This API is used to upload media files.
+// @tags MediaMethod
+// @security BearerAuth
+// @Param channelId path string true "Channel ID"
+// @Param media formData file true "Media file to upload"
+// @router /v1/media/uploadmedia/:channelId [post]
 func UploadMedia(c *gin.Context) {
 	log.GetLog().Info("INFO : ", "Media Controller Called(UploadMedia).")
 

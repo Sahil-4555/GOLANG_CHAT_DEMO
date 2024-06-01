@@ -40,12 +40,12 @@ var (
 // Client represents the websocket client at the server [server] <--> [client]
 type Client struct {
 	Name     string          `json:"name"`      // name of the client
-	Id       string          `json:"_id"`       // id of ther client
+	Id       string          `json:"_id"`       // id of the client
 	UserName string          `json:"user_name"` // username of the client
 	conn     *websocket.Conn // websocket connection of the client
 	wsServer *WsServer       // keep reference of webserver to every client
 	send     chan []byte     // send channel then moves this to broadcast channel in server
-	room     *Room           // a client will be in one room at a time
+	room     *Room           // room in which client is connected
 }
 
 // NewClient initialize new websocket client like App server in routes.go
@@ -89,11 +89,13 @@ func (client *Client) handleNewMessage(message Message) {
 		client.UpdateMessageReadby(id, room)
 
 	case JoinRoomAction:
+		// to join the room
 		client.HandleJoinRoomMessage(message)
-		// this function will do the operation like update last opened time for the channel and add the id of the user in the read_by array
+		// to update the last opened channel by an client
 		client.UpdateChannelStatus(message)
 
 	case LeaveRoomAction:
+		// to leave the room
 		client.HandleLeaveRoomMessage(message)
 
 	case ClientNameAction:
@@ -372,6 +374,7 @@ func (client *Client) StoreInDB(message Message) primitive.ObjectID {
 	}
 	msg.TimeStamp()
 	msg.NewID()
+
 	result, err := conn.MessageCollection().InsertOne(ctx, msg)
 	if err != nil {
 		m := &Message{
@@ -391,6 +394,7 @@ func (client *Client) StoreInDB(message Message) primitive.ObjectID {
 		}
 		client.wsServer.broadcastToClient <- map[*Client]*Message{client: m}
 	}
+
 	var channel models.Channel
 	conn.ChannelCollection().FindOne(ctx, filter).Decode(&channel)
 	var reciver primitive.ObjectID
@@ -415,6 +419,8 @@ func (client *Client) HandleNotification(message Message) {
 	for _, id := range message.NotifyUsers {
 		user[id.Hex()] = true
 	}
+
+	// to send the message to the users who are in the room with event type
 	var msg Message
 	switch message.NotificationType {
 	case MetionInMessageNotification:
@@ -453,6 +459,7 @@ func (client *Client) HandleLeaveRoomMessage(message Message) {
 	client.room.unregister <- client
 }
 
+// handleJoinRoomMessage will handle joining a room.register <- Client
 func (client *Client) HandleJoinRoomMessage(message Message) {
 	log.GetLog().Info("INFO : ", "Client controller called(HandleJoinRoomMessage).")
 
@@ -489,6 +496,7 @@ func (client *Client) HandleJoinRoomMessage(message Message) {
 	}
 }
 
+// disconnect will handle the client disconnection from the server
 func (client *Client) disconnect() {
 	log.GetLog().Info("INFO : ", "Client controller called(disconnect).")
 
@@ -520,7 +528,7 @@ func ServeWs(wsServer *WsServer, w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// ws://url?_id=id
+	// ws://url?_id=id&token=token
 	id := r.URL.Query().Get("_id")
 	user := middleware.GetUserById(id)
 	client := NewClient(conn, wsServer, user.Name, id, user.UserName)
@@ -529,8 +537,6 @@ func ServeWs(wsServer *WsServer, w http.ResponseWriter, r *http.Request) {
 
 	go client.readPump()
 	go client.writePump()
-
-	//we are registering the client
 }
 
 // writePump goroutine handles sending the messages to the connected client. It runs in an endless loop waiting for new messages in the client.send channel. When receiving new messages it writes them to the client, if there are multiple messages available they will be combined in one write.

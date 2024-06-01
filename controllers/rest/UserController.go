@@ -11,13 +11,12 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-// swagger:route POST /v1/api/signup
-// Sign up for a new account.
-//
-// Responses:
-//
-//	200: SignupResponse
-//	400: BadRequestError
+// SignUp
+// @Summary SignUp - This API is used to SignUp the user.
+// @tags UserMethod
+// @security BearerAuth
+// @Param SignupRequest body common.SignUpReq true "signup request"
+// @router /v1/api/signup [post]
 func SignUp(c *gin.Context) {
 	log.GetLog().Info("INFO : ", "User Controller Called(SignUp).")
 
@@ -48,6 +47,12 @@ func SignUp(c *gin.Context) {
 	log.GetLog().Info("INFO : ", "SignUp successfully...")
 }
 
+// SignIn
+// @Summary SignIn - This API is used to SignIn the user.
+// @tags UserMethod
+// @security BearerAuth
+// @Param SignupRequest body common.SignInReq true "signin request"
+// @router /v1/api/login [post]
 func SignIn(c *gin.Context) {
 	log.GetLog().Info("INFO : ", "User Controller Called(SignIn).")
 

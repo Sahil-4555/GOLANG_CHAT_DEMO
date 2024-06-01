@@ -9,6 +9,18 @@ import (
 	"github.com/Sahil-4555/mvc/shared/utils"
 )
 
+// /*
+// *
+// @title Chat Application API
+// @version 1.0
+// @description Chat Application API
+// @securityDefinitions.apikey BearerAuth
+// @BasePath /
+// @in header
+// @name Authorization
+// @description Bearer token authentication
+// *
+// */
 func main() {
 
 	log.Init()

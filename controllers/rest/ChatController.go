@@ -14,6 +14,12 @@ import (
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
+// SearchHandler
+// @Summary SearchHandler - This API is used to search channels and users based on search value.
+// @tags ChatMethod
+// @security BearerAuth
+// @Param searchValue query string false "Search Value"
+// @router /v1/chat/searchhandler [get]
 func SearchHandler(c *gin.Context) {
 	log.GetLog().Info("INFO : ", "Chat Controller Called(SearchHandler).")
 
@@ -32,6 +38,12 @@ func SearchHandler(c *gin.Context) {
 	log.GetLog().Info("INFO : ", "Searched successfully...")
 }
 
+// UpdateMessage
+// @Summary UpdateMessage - This API is used to update the chat message.
+// @tags ChatMethod
+// @security BearerAuth
+// @Param UpdateMessageRequest body common.UpdateMessageReq true "update message"
+// @router /v1/chat/updatemessage [put]
 func UpdateMessage(c *gin.Context) {
 	log.GetLog().Info("INFO : ", "Chat Controller Called(UpdateMessage).")
 
@@ -60,6 +72,12 @@ func UpdateMessage(c *gin.Context) {
 	log.GetLog().Info("INFO : ", "Message updated successfully...")
 }
 
+// DeleteMessage
+// @Summary DeleteMessage - This API is used to delete the chat message.
+// @tags ChatMethod
+// @security BearerAuth
+// @Param DeleteMessageRequest body common.DeleteMessageReq true "delete message"
+// @router /v1/chat/deletemessage [delete]
 func DeleteMessage(c *gin.Context) {
 	log.GetLog().Info("INFO : ", "Chat Controller Called(DeleteMessage).")
 
@@ -88,22 +106,18 @@ func DeleteMessage(c *gin.Context) {
 	log.GetLog().Info("INFO : ", "Message deleted successfully...")
 }
 
-func GetMessageById(c *gin.Context) {
-	log.GetLog().Info("INFO : ", "Chat Controller Called(GetMessageById).")
-
-	Id := c.Param("_id")
-	messageId, _ := primitive.ObjectIDFromHex(Id)
-
-	resp := service.GetMessageById(messageId)
-	statusCode := common.GetHTTPStatusCode(resp["res_code"])
-	common.Respond(c, statusCode, resp)
-	log.GetLog().Info("INFO : ", "Message fetched successfully...")
-}
-
+// GetMessagesById
+// @Summary GetMessagesById - This API is used to get the messages by ChannelId
+// @tags ChatMethod
+// @security BearerAuth
+// @Param id path string true "Channel Id"
+// @Param page query string false "Page Value"
+// @Param offset query string false "Offset Value"
+// @router /v1/chat/messages-by-channelid/{id} [get]
 func GetMessagesByChannelId(c *gin.Context) {
 	log.GetLog().Info("INFO : ", "Chat Controller Called(GetMessagesByChannelId).")
 
-	Id := c.Param("_id")
+	Id := c.Param("id")
 	channelId, _ := primitive.ObjectIDFromHex(Id)
 
 	pageStr := c.Query("page")
@@ -118,6 +132,12 @@ func GetMessagesByChannelId(c *gin.Context) {
 	log.GetLog().Info("INFO : ", "Messages fetched successfully...")
 }
 
+// GetAllUsers
+// @Summary GetAllUsers - This API is used to search the users based on search value
+// @tags ChatMethod
+// @security BearerAuth
+// @Param searchValue query string false "Search Value"
+// @router /v1/chat/get-all-users [get]
 func GetAllUsers(c *gin.Context) {
 	log.GetLog().Info("INFO : ", "Chat Controller Called(GetAllUsers).")
 
@@ -134,10 +154,16 @@ func GetAllUsers(c *gin.Context) {
 	log.GetLog().Info("INFO : ", "Users fetched successfully...")
 }
 
+// GetChannelMembers
+// @Summary GetChannelMembers - This API is used to get the channel members of channel
+// @tags ChatMethod
+// @security BearerAuth
+// @Param channelId path string true "Channel Id"
+// @router /v1/chat/get-channel-members [get]
 func GetChannelMembers(c *gin.Context) {
 	log.GetLog().Info("INFO : ", "Chat Controller Called(GetChannelMembers).")
 
-	channelId := c.Query("channelId")
+	channelId := c.Param("channelId")
 	Id, _ := primitive.ObjectIDFromHex(channelId)
 
 	resp := service.GetChannelMembers(Id)

@@ -9,15 +9,15 @@ import (
 // var UnregisterDone = make(chan struct{})
 
 type Room struct {
-	name                    string
-	clients                 map[*Client]bool
-	wsServer                *WsServer //keep reference of webserver to every client
-	register                chan *Client
-	unregister              chan *Client
-	broadcast               chan *Message //message send in a room
-	broadcastToClientinRoom chan *Message //message to a client
-	Grouplimit              int
-	stoproom                chan bool //end the server routine
+	name                    string           //name of the room
+	clients                 map[*Client]bool //clients in the room
+	wsServer                *WsServer        //refrence of server to every client
+	register                chan *Client     //channel to register a client in a room
+	unregister              chan *Client     //channel to unregister a client in a room
+	broadcast               chan *Message    //message send in a room
+	broadcastToClientinRoom chan *Message    //message to a client
+	Grouplimit              int              //limit of clients in a room
+	stoproom                chan bool        //end the server routine
 }
 
 func NewRoom(name string, server *WsServer) *Room {

@@ -317,24 +317,6 @@ func DeleteMessage(req common.DeleteMessageReq, userId primitive.ObjectID) map[s
 	}
 }
 
-func GetMessageById(messageId primitive.ObjectID) map[string]interface{} {
-	log.GetLog().Info("INFO : ", "Chat Service Called(GetMessageById).")
-
-	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
-	defer cancel()
-	conn := database.NewConnection()
-
-	var msg models.Message
-	conn.MessageCollection().FindOne(ctx, bson.M{"_id": messageId}).Decode(&msg)
-
-	return map[string]interface{}{
-		"message": message.SuccessfullyGetData,
-		"code":    common.META_SUCCESS,
-		"data":    msg,
-	}
-
-}
-
 func GetMessagesByChannelId(channelId primitive.ObjectID, page, offset int) map[string]interface{} {
 	log.GetLog().Info("INFO : ", "Chat Service Called(GetMessagesByChannelId).")
 

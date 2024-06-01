@@ -1,0 +1,454 @@
+definitions:
+  common.AddFavoriteChannelReq:
+    properties:
+      channel_id:
+        type: string
+      is_favourite:
+        type: boolean
+    type: object
+  common.AddMembersToGroupReq:
+    properties:
+      channel_id:
+        type: string
+      users:
+        items:
+          type: string
+        type: array
+    required:
+    - channel_id
+    - users
+    type: object
+  common.CloseConversationReq:
+    properties:
+      channel_id:
+        type: string
+    required:
+    - channel_id
+    type: object
+  common.CreateGroupReq:
+    properties:
+      channel_name:
+        maxLength: 50
+        type: string
+      description:
+        type: string
+    required:
+    - channel_name
+    type: object
+  common.DeleteMessageReq:
+    properties:
+      _id:
+        type: string
+    type: object
+  common.GiveAdminRightsToUserReq:
+    properties:
+      channel_id:
+        type: string
+      user_id:
+        type: string
+    type: object
+  common.JoinChannelReq:
+    properties:
+      reciver_id:
+        type: string
+    type: object
+  common.LeaveChannelReq:
+    properties:
+      channel_id:
+        type: string
+    required:
+    - channel_id
+    type: object
+  common.RemovUserFromGroupByGroupAdminReq:
+    properties:
+      channel_id:
+        type: string
+      users:
+        items:
+          type: string
+        type: array
+    required:
+    - channel_id
+    - users
+    type: object
+  common.SignInReq:
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+    required:
+    - email
+    - password
+    type: object
+  common.SignUpReq:
+    properties:
+      email:
+        type: string
+      name:
+        maxLength: 50
+        type: string
+      password:
+        type: string
+      user_name:
+        maxLength: 50
+        type: string
+    required:
+    - email
+    - name
+    - password
+    - user_name
+    type: object
+  common.UpdateMessageReq:
+    properties:
+      _id:
+        type: string
+      content:
+        type: string
+    type: object
+info:
+  contact: {}
+  description: Chat Application API
+  title: Chat Application API
+  version: "1.0"
+paths:
+  /v1/api/login:
+    post:
+      parameters:
+      - description: signin request
+        in: body
+        name: SignupRequest
+        required: true
+        schema:
+          $ref: '#/definitions/common.SignInReq'
+      responses: {}
+      security:
+      - BearerAuth: []
+      summary: SignIn - This API is used to SignIn the user.
+      tags:
+      - UserMethod
+  /v1/api/signup:
+    post:
+      parameters:
+      - description: signup request
+        in: body
+        name: SignupRequest
+        required: true
+        schema:
+          $ref: '#/definitions/common.SignUpReq'
+      responses: {}
+      security:
+      - BearerAuth: []
+      summary: SignUp - This API is used to SignUp the user.
+      tags:
+      - UserMethod
+  /v1/channel/addfavoritechannel:
+    post:
+      parameters:
+      - description: add or remove favourite channel
+        in: body
+        name: AddFavoriteChannelRequest
+        required: true
+        schema:
+          $ref: '#/definitions/common.AddFavoriteChannelReq'
+      responses: {}
+      security:
+      - BearerAuth: []
+      summary: AddRemoveFavouriteChannel - This API is used to add or remove favourite
+        channel
+      tags:
+      - ChannelMethod
+  /v1/channel/addmembers:
+    put:
+      parameters:
+      - description: add members to group channel
+        in: body
+        name: AddMembersToGroupRequest
+        required: true
+        schema:
+          $ref: '#/definitions/common.AddMembersToGroupReq'
+      responses: {}
+      security:
+      - BearerAuth: []
+      summary: AddMembersToGroup - This API is used to add members to group channel
+      tags:
+      - ChannelMethod
+  /v1/channel/closeconversation:
+    put:
+      parameters:
+      - description: close conversation for one to one channels
+        in: body
+        name: CloseConversationRequest
+        required: true
+        schema:
+          $ref: '#/definitions/common.CloseConversationReq'
+      responses: {}
+      security:
+      - BearerAuth: []
+      summary: CloseConversation - This API is used to close conversation for one
+        to one channels
+      tags:
+      - ChannelMethod
+  /v1/channel/createGroup:
+    post:
+      parameters:
+      - description: create group
+        in: body
+        name: CreateGroupRequest
+        required: true
+        schema:
+          $ref: '#/definitions/common.CreateGroupReq'
+      responses: {}
+      security:
+      - BearerAuth: []
+      summary: CreateGroup - This API is used to create a new group
+      tags:
+      - ChannelMethod
+  /v1/channel/get-all-direct-channel:
+    get:
+      responses: {}
+      security:
+      - BearerAuth: []
+      summary: GetAllOneToOneChannelInOrder - This API is used to get all one to one
+        channels of user in order
+      tags:
+      - ChannelMethod
+  /v1/channel/get-direct-channel:
+    get:
+      responses: {}
+      security:
+      - BearerAuth: []
+      summary: GetOneToOneChannelsConnectedWithUser - This API is used to get all
+        one to one channels connected with user
+      tags:
+      - ChannelMethod
+  /v1/channel/get-favourite-channel:
+    get:
+      responses: {}
+      security:
+      - BearerAuth: []
+      summary: GetFavouritesChannel - This API is used to get all favourite channels
+      tags:
+      - ChannelMethod
+  /v1/channel/get-group-channel:
+    get:
+      responses: {}
+      security:
+      - BearerAuth: []
+      summary: GetPrivateChannelsConnectedWithUser - This API is used to get all private
+        channels connected with user
+      tags:
+      - ChannelMethod
+  /v1/channel/getrecentchannels:
+    get:
+      parameters:
+      - description: Page number
+        in: query
+        name: page
+        type: integer
+      - description: Offset value
+        in: query
+        name: offset
+        type: integer
+      responses: {}
+      security:
+      - BearerAuth: []
+      summary: GetRecentChannels - This API is used to get recent channels of users
+      tags:
+      - ChannelMethod
+  /v1/channel/give-admin-rights:
+    put:
+      parameters:
+      - description: give admin rights to user
+        in: body
+        name: GiveAdminRightsToUserRequest
+        required: true
+        schema:
+          $ref: '#/definitions/common.GiveAdminRightsToUserReq'
+      responses: {}
+      security:
+      - BearerAuth: []
+      summary: GiveAdminRightsToUser - This API is used to give admin rights to user
+      tags:
+      - ChannelMethod
+  /v1/channel/join-group/{channelId}:
+    get:
+      parameters:
+      - description: Channel ID
+        in: path
+        name: channelId
+        required: true
+        type: string
+      responses: {}
+      security:
+      - BearerAuth: []
+      summary: JoinGroup - This API is used to join group channel
+      tags:
+      - ChannelMethod
+  /v1/channel/joinRoom:
+    post:
+      parameters:
+      - description: join channel
+        in: body
+        name: JoinChannelRequest
+        required: true
+        schema:
+          $ref: '#/definitions/common.JoinChannelReq'
+      responses: {}
+      security:
+      - BearerAuth: []
+      summary: JoinChannel - This API is used to join a channel
+      tags:
+      - ChannelMethod
+  /v1/channel/leavechannel:
+    put:
+      parameters:
+      - description: leave group channel
+        in: body
+        name: LeaveChannelRequest
+        required: true
+        schema:
+          $ref: '#/definitions/common.LeaveChannelReq'
+      responses: {}
+      security:
+      - BearerAuth: []
+      summary: LeaveChannel - This API is used to leave group channel
+      tags:
+      - ChannelMethod
+  /v1/channel/removeuserbyadmin:
+    put:
+      parameters:
+      - description: remove members from group channel by group admin
+        in: body
+        name: RemoveMemberFromGroupRequest
+        required: true
+        schema:
+          $ref: '#/definitions/common.RemovUserFromGroupByGroupAdminReq'
+      responses: {}
+      security:
+      - BearerAuth: []
+      summary: AddMembersToGroup - This API is used to remove members from group channel
+        by group admin
+      tags:
+      - ChannelMethod
+  /v1/chat/deletemessage:
+    delete:
+      parameters:
+      - description: delete message
+        in: body
+        name: DeleteMessageRequest
+        required: true
+        schema:
+          $ref: '#/definitions/common.DeleteMessageReq'
+      responses: {}
+      security:
+      - BearerAuth: []
+      summary: DeleteMessage - This API is used to delete the chat message.
+      tags:
+      - ChatMethod
+  /v1/chat/get-all-users:
+    get:
+      parameters:
+      - description: Search Value
+        in: query
+        name: searchValue
+        type: string
+      responses: {}
+      security:
+      - BearerAuth: []
+      summary: GetAllUsers - This API is used to search the users based on search
+        value
+      tags:
+      - ChatMethod
+  /v1/chat/get-channel-members:
+    get:
+      parameters:
+      - description: Channel Id
+        in: path
+        name: channelId
+        required: true
+        type: string
+      responses: {}
+      security:
+      - BearerAuth: []
+      summary: GetChannelMembers - This API is used to get the channel members of
+        channel
+      tags:
+      - ChatMethod
+  /v1/chat/messages-by-channelid/{id}:
+    get:
+      parameters:
+      - description: Channel Id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Page Value
+        in: query
+        name: page
+        type: string
+      - description: Offset Value
+        in: query
+        name: offset
+        type: string
+      responses: {}
+      security:
+      - BearerAuth: []
+      summary: GetMessagesById - This API is used to get the messages by ChannelId
+      tags:
+      - ChatMethod
+  /v1/chat/searchhandler:
+    get:
+      parameters:
+      - description: Search Value
+        in: query
+        name: searchValue
+        type: string
+      responses: {}
+      security:
+      - BearerAuth: []
+      summary: SearchHandler - This API is used to search channels and users based
+        on search value.
+      tags:
+      - ChatMethod
+  /v1/chat/updatemessage:
+    put:
+      parameters:
+      - description: update message
+        in: body
+        name: UpdateMessageRequest
+        required: true
+        schema:
+          $ref: '#/definitions/common.UpdateMessageReq'
+      responses: {}
+      security:
+      - BearerAuth: []
+      summary: UpdateMessage - This API is used to update the chat message.
+      tags:
+      - ChatMethod
+  /v1/media/uploadmedia/:channelId:
+    post:
+      parameters:
+      - description: Channel ID
+        in: path
+        name: channelId
+        required: true
+        type: string
+      - description: Media file to upload
+        in: formData
+        name: media
+        required: true
+        type: file
+      responses: {}
+      security:
+      - BearerAuth: []
+      summary: UploadMedia - This API is used to upload media files.
+      tags:
+      - MediaMethod
+securityDefinitions:
+  BearerAuth:
+    description: Bearer token authentication
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"

@@ -1,7 +1,6 @@
 package configs
 
 import (
-	"fmt"
 	"os"
 
 	"github.com/Sahil-4555/mvc/shared/log"
@@ -14,13 +13,13 @@ func MongoURI() string {
 		log.GetLog().Info("ERROR : ", "Error loading .env file.")
 	}
 
-	Username := os.Getenv("DB_USER_MONGO")
-	Password := os.Getenv("DB_PASSWORD_MONGO")
-	Host := os.Getenv("DB_HOST_MONGO")
-	Port := os.Getenv("DB_PORT_MONGO")
-	connectionString := fmt.Sprintf("mongodb://%s:%s@%s:%s", Username, Password, Host, Port)
-	return connectionString
-	// return os.Getenv("MONGO_URI")
+	// Host := os.Getenv("MONGODB_HOST")
+	// Username := os.Getenv("MONGODB_USER")
+	// Password := os.Getenv("MONGODB_PASSWORD")
+	// Port := os.Getenv("MONGODB_PORT")
+	// connectionString := fmt.Sprintf("mongodb://%s:%s@%s:%s", Username, Password, Host, Port)
+	// return connectionString
+	return os.Getenv("MONGO_URI")
 }
 
 func Database() string {
@@ -29,7 +28,7 @@ func Database() string {
 		log.GetLog().Info("ERROR : ", "Error loading .env file.")
 	}
 
-	return os.Getenv("DB_NAME_MONGO")
+	return os.Getenv("MONGODB_DATABASE")
 }
 
 func Port() string {
@@ -83,5 +82,5 @@ func JwtApiAuthKey() string {
 		log.GetLog().Info("ERROR : ", "Error loading .env file.")
 	}
 
-	return os.Getenv("JWT_API_AUTH_KEY")
+	return os.Getenv("JWT_SECRET")
 }

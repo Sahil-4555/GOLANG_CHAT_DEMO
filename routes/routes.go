@@ -5,10 +5,14 @@ import (
 	"fmt"
 	"net/http"
 
+	swaggerFiles "github.com/swaggo/files"
+	ginSwagger "github.com/swaggo/gin-swagger"
+
 	"github.com/Sahil-4555/mvc/configs"
 	"github.com/Sahil-4555/mvc/configs/middleware"
 	rest "github.com/Sahil-4555/mvc/controllers/rest"
 	"github.com/Sahil-4555/mvc/controllers/ws"
+	"github.com/Sahil-4555/mvc/docs"
 	"github.com/Sahil-4555/mvc/shared/log"
 	"github.com/gin-gonic/gin"
 )
@@ -38,16 +42,22 @@ func Close(ctx context.Context) error {
 }
 
 func SetupRoutes(r *gin.Engine) {
+
+	docs.SwaggerInfo.Title = "CHAT APPLICATION API"
+	docs.SwaggerInfo.Description = "This is a sample doc of Chat Application API."
+	docs.SwaggerInfo.Schemes = []string{"http", "https"}
+
 	r.Use(gin.Recovery())
 	r.Use(gin.Logger())
 	r.Use(middleware.GinMiddleware())
+
+	SetupDefaultEndpoints(r)
+
 	public := r.Group("/v1/api")
-	public.POST("/signup", rest.SignUp)
-	public.POST("/login", rest.SignIn)
+	SetupUserRoutes(public)
 
 	private := r.Group("/")
 	private.Use(middleware.AuthHandler())
-
 	SetupChannelRoutes(private)
 	SetupChatRoutes(private)
 	SetupMediaRoutes(private)
@@ -59,6 +69,29 @@ func SetupRoutes(r *gin.Engine) {
 	wsGroup.GET("", func(c *gin.Context) {
 		ws.ServeWs(wsServer, c.Writer, c.Request)
 	})
+}
+
+func SetupDefaultEndpoints(r *gin.Engine) {
+
+	r.GET("/", func(c *gin.Context) {
+		htmlString := "<html><body>Welcome to CHAT APPLICATION!</body></html>"
+		c.Writer.WriteHeader(http.StatusOK)
+		_, err := c.Writer.Write([]byte(htmlString))
+		if err != nil {
+			return
+		}
+	})
+
+	r.GET("/ping", func(c *gin.Context) {
+		c.JSON(200, gin.H{"message": "pong"})
+	})
+
+	r.GET("/docs/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
+}
+
+func SetupUserRoutes(rg *gin.RouterGroup) {
+	rg.POST("/signup", rest.SignUp)
+	rg.POST("/login", rest.SignIn)
 }
 
 func SetupChannelRoutes(rg *gin.RouterGroup) {
@@ -87,9 +120,9 @@ func SetupChatRoutes(rg *gin.RouterGroup) {
 		ChatRoute.PUT("/updatemessage", rest.UpdateMessage)
 		ChatRoute.PUT("/deletemessage", rest.DeleteMessage)
 		ChatRoute.GET("/searchhandler", rest.SearchHandler)
-		ChatRoute.GET("/messages-by-channelid/:_id", rest.GetMessagesByChannelId)
+		ChatRoute.GET("/messages-by-channelid/:id", rest.GetMessagesByChannelId)
 		ChatRoute.GET("/get-all-users", rest.GetAllUsers)
-		ChatRoute.GET("/get-channel-members", rest.GetChannelMembers)
+		ChatRoute.GET("/get-channel-members/:channelId", rest.GetChannelMembers)
 	}
 }
 
