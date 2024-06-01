@@ -4,15 +4,45 @@ import (
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
-type UserRegReq struct {
+// swagger:model SignUpRequest
+type SignUpReq struct {
+	// Username of the user
+	//
+	// required: true
+	// example: john_doe
 	UserName string `json:"user_name" bson:"user_name" validate:"required,max=50"`
-	Name     string `json:"name" bson:"name" validate:"required,max=50"`
-	Email    string `json:"email" bson:"email" validate:"required"`
+
+	// Name of the user
+	//
+	// required: true
+	// example: john_doe
+	Name string `json:"name" bson:"name" validate:"required,max=50"`
+
+	// Email of the user
+	//
+	// required: true
+	// example: john@example.com
+	Email string `json:"email" bson:"email" validate:"required"`
+
+	// Password of the user
+	//
+	// required: true
+	// example: password123
 	Password string `json:"password" bson:"password" validate:"required"`
 }
 
-type UseLoginReq struct {
-	Email    string `json:"email" bson:"email" validate:"required"`
+// swagger:model SignInRequest
+type SignInReq struct {
+	// Email of the user
+	//
+	// required: true
+	// example: john@example.com
+	Email string `json:"email" bson:"email" validate:"required"`
+
+	// Password of the user
+	//
+	// required: true
+	// example: password123
 	Password string `json:"password" bson:"password" validate:"required"`
 }
 

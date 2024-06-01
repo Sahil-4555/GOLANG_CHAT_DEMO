@@ -19,7 +19,6 @@ func MongoURI() string {
 	Host := os.Getenv("DB_HOST_MONGO")
 	Port := os.Getenv("DB_PORT_MONGO")
 	connectionString := fmt.Sprintf("mongodb://%s:%s@%s:%s", Username, Password, Host, Port)
-	fmt.Println("-------------> connection string", connectionString)
 	return connectionString
 	// return os.Getenv("MONGO_URI")
 }

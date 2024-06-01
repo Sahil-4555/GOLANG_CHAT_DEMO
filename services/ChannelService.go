@@ -1068,7 +1068,8 @@ func AddMembersToGroup(req common.AddMembersToGroupReq, userId primitive.ObjectI
 	pipeline := []bson.M{
 		{
 			"$match": bson.M{
-				"_id": req.ChannelId,
+				"_id":        req.ChannelId,
+				"deleted_at": nil,
 			},
 		},
 		{
@@ -1139,15 +1140,10 @@ func AddMembersToGroup(req common.AddMembersToGroupReq, userId primitive.ObjectI
 		}
 	}
 
-	data := map[string]interface{}{
-		"data":  channel,
-		"users": req.Users,
-	}
-
 	return map[string]interface{}{
 		"code":    common.META_SUCCESS,
 		"message": message.SuccessAddedMembersToGroup,
-		"data":    data,
+		"data":    channel,
 	}
 }
 
@@ -1158,9 +1154,93 @@ func LeaveChannel(req common.LeaveChannelReq, userId primitive.ObjectID) map[str
 	defer cancel()
 	conn := database.NewConnection()
 
+	pipeline := []bson.M{
+		{
+			"$match": bson.M{
+				"_id":        req.ChannelId,
+				"deleted_at": nil,
+			},
+		},
+		{
+			"$addFields": bson.M{
+				"is_admin": bson.M{
+					"$cond": bson.M{
+						"if": bson.M{
+							"$in": bson.A{
+								userId,
+								"$admins",
+							},
+						},
+						"then": true,
+						"else": false,
+					},
+				},
+			},
+		},
+		{
+			"$project": bson.M{
+				"is_admin_multiple": bson.M{
+					"$cond": bson.M{
+						"if": bson.M{
+							"$eq": bson.A{
+								"$is_admin",
+								true,
+							},
+						},
+						"then": bson.M{
+							"$cond": bson.M{
+								"if": bson.M{
+									"$gt": bson.A{
+										bson.M{
+											"$size": "$admins",
+										},
+										1,
+									},
+								},
+								"then": true,
+								"else": false,
+							},
+						},
+						"else": true,
+					},
+				},
+			},
+		},
+	}
+
+	var isAdminMult []common.IsMultipleAdminResponse
+
+	cursor, err := conn.ChannelCollection().Aggregate(ctx, pipeline)
+
+	if err != nil {
+		log.GetLog().Error("ERROR(Query) : ", err.Error())
+		return map[string]interface{}{
+			"code":     common.META_FAILED,
+			"message":  err.Error(),
+			"res_code": common.STATUS_BAD_REQUEST,
+		}
+	}
+
+	if err := cursor.All(context.TODO(), &isAdminMult); err != nil {
+		log.GetLog().Error("ERROR(DB) : ", err.Error())
+		return map[string]interface{}{
+			"code":     common.META_FAILED,
+			"message":  err.Error(),
+			"res_code": common.STATUS_BAD_REQUEST,
+		}
+	}
+
+	if len(isAdminMult) == 0 || !isAdminMult[0].IsAdminMultiple {
+		return map[string]interface{}{
+			"code":     common.META_FAILED,
+			"message":  message.MultipleAdminMessage,
+			"res_code": common.STATUS_OK,
+		}
+	}
+
 	filter := bson.M{"_id": req.ChannelId, "channel_type": common.PRIVATE_COMMUNICATION, "deleted_at": bson.M{"$eq": nil}}
 	update := bson.M{"$pull": bson.M{"users": userId}}
-	_, err := conn.ChannelCollection().UpdateOne(ctx, filter, update)
+	_, err = conn.ChannelCollection().UpdateOne(ctx, filter, update)
 
 	if err != nil {
 		log.GetLog().Error("ERROR(Query) : ", err.Error())
@@ -1214,7 +1294,7 @@ func LeaveChannel(req common.LeaveChannelReq, userId primitive.ObjectID) map[str
 		}
 	}
 
-	pipeline := []bson.M{
+	pipeline = []bson.M{
 		{
 			"$match": bson.M{
 				"_id": req.ChannelId,
@@ -1266,7 +1346,7 @@ func LeaveChannel(req common.LeaveChannelReq, userId primitive.ObjectID) map[str
 	}
 
 	var channel []common.ChannelResponse
-	cursor, err := conn.ChannelCollection().Aggregate(ctx, pipeline)
+	cursor, err = conn.ChannelCollection().Aggregate(ctx, pipeline)
 
 	if err != nil {
 		log.GetLog().Error("ERROR(Query) : ", err.Error())
@@ -1756,14 +1836,20 @@ func JoinGroupWithChannelId(userId, channelId primitive.ObjectID) map[string]int
 					},
 				},
 				"user_details": bson.M{
-					"$filter": bson.M{
-						"input": "$user_details",
-						"as":    "user",
-						"cond": bson.M{
-							"$not": bson.M{
-								"$eq": []interface{}{"$$user._id", userId},
+					"$cond": bson.M{
+						"if": bson.M{"$eq": []interface{}{"$channel_type", common.ONE_TO_ONE_COMMUNICATION}},
+						"then": bson.M{
+							"$filter": bson.M{
+								"input": "$user_details",
+								"as":    "user",
+								"cond": bson.M{
+									"$not": bson.M{
+										"$eq": []interface{}{"$$user._id", userId},
+									},
+								},
 							},
 						},
+						"else": "$user_details",
 					},
 				},
 			},

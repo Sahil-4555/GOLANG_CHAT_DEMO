@@ -11,10 +11,17 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// swagger:route POST /v1/api/signup
+// Sign up for a new account.
+//
+// Responses:
+//
+//	200: SignupResponse
+//	400: BadRequestError
 func SignUp(c *gin.Context) {
 	log.GetLog().Info("INFO : ", "User Controller Called(SignUp).")
 
-	var req common.UserRegReq
+	var req common.SignUpReq
 
 	// Decode the request body into struct and failed if any error occur
 	if c.BindJSON(&req) != nil {
@@ -44,7 +51,7 @@ func SignUp(c *gin.Context) {
 func SignIn(c *gin.Context) {
 	log.GetLog().Info("INFO : ", "User Controller Called(SignIn).")
 
-	var req common.UseLoginReq
+	var req common.SignInReq
 
 	// Decode the request body into struct and failed if any error occur
 	if c.BindJSON(&req) != nil {

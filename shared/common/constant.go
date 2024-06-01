@@ -1,6 +1,5 @@
 package common
 
-// $(*%S$FDd!3)96|12AP&LR
 const (
 	STATUS_CREATED               = 201
 	STATUS_DUPLICATE             = 409
@@ -24,16 +23,6 @@ const (
 const (
 	PAGE        = "1"
 	PAGE_OFFSET = "20"
-)
-
-const (
-	POST_NOTIFICATION_EVENT = "post-notification"
-	GET_NOTIFICATION_EVENT  = "get-notification"
-	JOIN_ROOM_EVENT         = "join-room"
-	SEND_NEW_MESSAGE_EVENT  = "send-new-message"
-	READ_NEW_MESSAGE_EVENT  = "read-new-message"
-	STATUS_AWAY_EVENT       = "status-away"
-	STATUS_ONLINE_EVENT     = "status-online"
 )
 
 const (
