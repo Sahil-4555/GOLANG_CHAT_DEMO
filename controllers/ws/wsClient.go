@@ -424,6 +424,7 @@ func (client *Client) HandleNotification(message Message) {
 	case UpdateChannelDataAcrossUser:
 		msg.Action = UpdateChannelDataAcrossUser
 		msg.Target = message.Target
+		msg.Payload = message.Payload
 	case UpdateChannelDataAcrossChannel:
 		msg.Action = UpdateChannelDataAcrossChannel
 		msg.Target = message.Target

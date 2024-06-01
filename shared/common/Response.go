@@ -101,10 +101,8 @@ type GetMessagesByChannelIdResponse struct {
 	Id          primitive.ObjectID `json:"_id,omitempty" bson:"_id,omitempty" structs:"_id"`
 	Content     string             `json:"content,omitempty" bson:"content,omitempty" structs:"content"`
 	ContentType string             `json:"content_type" bson:"content_type" validate:"required,oneof=text media both" structs:"content_type"`
-	// MediaUrl    string             `json:"media_url,omitempty" bson:"media_url,omitempty" structs:"media_url"`
-	// ParentId  primitive.ObjectID `json:"parent_id,omitempty" bson:"parent_id,omitempty" structs:"parent_id"`
-	UpdatedAt time.Time    `json:"updated_at" bson:"updated_at" structs:"updated_at"`
-	User      UserResponse `json:"user" bson:"user" structs:"user"`
+	UpdatedAt   time.Time          `json:"updated_at" bson:"updated_at" structs:"updated_at"`
+	User        UserResponse       `json:"user" bson:"user" structs:"user"`
 }
 
 type MessageResponse struct {
@@ -113,6 +111,11 @@ type MessageResponse struct {
 	ContentType string             `json:"content_type" bson:"content_type" structs:"content_type"`
 	UpdatedAt   time.Time          `json:"updated_at" bson:"updated_at" structs:"updated_at"`
 	User        AllUserResponse    `json:"user" bson:"user" structs:"user"`
+}
+
+type IsMultipleAdminResponse struct {
+	Id              primitive.ObjectID `json:"_id" bson:"_id" structs:"_id"`
+	IsAdminMultiple bool               `json:"is_admin_multiple" bson:"is_admin_multiple" structs:"is_admin_multiple"`
 }
 
 type MetaPagination struct {

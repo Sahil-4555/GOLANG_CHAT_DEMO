@@ -22,7 +22,7 @@ import (
 var ApiAuthKey = "$(*%S$FDd!3)96|12AP&LR"
 
 // call service
-func SignUp(req common.UserRegReq) map[string]interface{} {
+func SignUp(req common.SignUpReq) map[string]interface{} {
 
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
@@ -113,7 +113,7 @@ func SignUp(req common.UserRegReq) map[string]interface{} {
 	return response
 }
 
-func SignIn(req common.UseLoginReq) map[string]interface{} {
+func SignIn(req common.SignInReq) map[string]interface{} {
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 

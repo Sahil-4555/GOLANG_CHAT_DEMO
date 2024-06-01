@@ -102,7 +102,6 @@ func Init() {
 	defaultLogger.maxAge = time.Duration(24*7) * time.Hour
 }
 
-// GetLog is
 func GetLog() ILogger {
 	defaultLoggerOnce.Do(createLogger)
 	return &defaultLogger
