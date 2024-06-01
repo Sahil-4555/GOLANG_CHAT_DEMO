@@ -23,7 +23,7 @@ const (
 	UserNotExist                  = "User not exists."
 	UnauthorizedUser              = "Unauthorized user."
 	FileFetchingError             = "Error while fetching the file."
-	GeneralInvalidFile            = "Please provide video file as per the specification : Allowed size: 100MB & Allowed type:[.mkv, .mp4, .flv, .pdf, .png, .jpg, .jpeg]."
+	GeneralInvalidFile            = "Please provide video file as per the specification : Allowed size: 10MB & Allowed type:[.mkv, .mp4, .flv, .pdf, .png, .jpg, .jpeg]."
 	InvalidSizeOrType             = "Invalid file type or size."
 	FailedToUpdateLastOpenedBy    = "Failed to update the last opened by user."
 	AuthorizationRequestInvalid   = "Request is not authorized."

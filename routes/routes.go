@@ -8,12 +8,13 @@ import (
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
 
-	"github.com/Sahil-4555/mvc/configs"
-	"github.com/Sahil-4555/mvc/configs/middleware"
-	rest "github.com/Sahil-4555/mvc/controllers/rest"
-	"github.com/Sahil-4555/mvc/controllers/ws"
-	"github.com/Sahil-4555/mvc/docs"
-	"github.com/Sahil-4555/mvc/shared/log"
+	"chat-demo-golang/configs"
+	"chat-demo-golang/configs/middleware"
+	rest "chat-demo-golang/controllers/rest"
+	"chat-demo-golang/controllers/ws"
+	"chat-demo-golang/docs"
+	"chat-demo-golang/shared/log"
+
 	"github.com/gin-gonic/gin"
 )
 
@@ -129,6 +130,6 @@ func SetupChatRoutes(rg *gin.RouterGroup) {
 func SetupMediaRoutes(rg *gin.RouterGroup) {
 	MediaRoute := rg.Group("/v1/media")
 	{
-		MediaRoute.POST("/uploadmedia/:channelId", rest.UploadMedia)
+		MediaRoute.POST("/uploadmedia", rest.UploadMedia)
 	}
 }

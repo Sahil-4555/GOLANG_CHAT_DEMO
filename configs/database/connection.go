@@ -4,9 +4,10 @@ import (
 	"context"
 	"sync"
 
-	"github.com/Sahil-4555/mvc/configs"
-	"github.com/Sahil-4555/mvc/models"
-	"github.com/Sahil-4555/mvc/shared/log"
+	"chat-demo-golang/configs"
+	"chat-demo-golang/models"
+	"chat-demo-golang/shared/log"
+
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"

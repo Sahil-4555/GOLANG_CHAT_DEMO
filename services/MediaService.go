@@ -1,40 +1,57 @@
 package service
 
 import (
+	"errors"
 	"strings"
-	"time"
 
-	"github.com/Sahil-4555/mvc/shared/aws"
-	"github.com/Sahil-4555/mvc/shared/common"
-	"github.com/Sahil-4555/mvc/shared/log"
-	"github.com/Sahil-4555/mvc/shared/message"
+	"chat-demo-golang/shared/aws"
+	"chat-demo-golang/shared/common"
+	"chat-demo-golang/shared/log"
+	"chat-demo-golang/shared/utils"
 )
 
-func UploadMedia(req common.UploadMediaReq) map[string]interface{} {
+const (
+	maxFileSize = 10 * 1024 * 1024
+)
 
+func CreateMediaRequest(filesize int64, filename string, uuId string, basePath string) (map[string]interface{}, error) {
+	log.GetLog().Info("INFO : ", "S3 Service Called(createMediaRequest).")
+	if filesize <= maxFileSize {
+		extension := filename
+		extArr := strings.Split(extension, ".")
+		fileName := extArr[0] + "-" + utils.GenerateID() + "." + extArr[1]
+		key := basePath + "/" + fileName
+		response := map[string]interface{}{
+			"key":  key,
+			"name": fileName,
+		}
+		return response, nil
+	} else {
+		return map[string]interface{}{}, errors.New("Invalid file type or size")
+	}
+}
+
+func UploadMedia(req common.UploadMediaData) map[string]interface{} {
+	log.GetLog().Info("INFO : ", "S3 Service Called(UploadMedia).")
 	var respData common.UploadMediaResponse
 
-	if req.FileData != nil {
-		err := aws.UploadToS3(req.Key, req.FileSize, req.FileData)
-		if err != nil {
-			log.GetLog().Info("ERROR : ", err.Error())
-			var data interface{}
-			return common.ConvertToInterface(message.SomethingWrong, common.META_FAILED, data)
+	url, err := aws.UploadToS3(req.Key)
+	if err != nil {
+		log.GetLog().Error("ERROR : ", err.Error())
+		return map[string]interface{}{
+			"message":  err.Error(),
+			"code":     common.META_FAILED,
+			"res_code": common.STATUS_OK,
 		}
-
 	}
+
 	fileName := strings.Split(req.Key, "/")
 	respData.FileName = fileName[len(fileName)-1]
+	respData.PreSignedUrl = url
 
-	url, err := aws.GenerateSignedUrl(req.Key, time.Duration(3))
-	if err != nil {
-		log.GetLog().Info("ERROR : ", err.Error())
-		var data interface{}
-		return common.ConvertToInterface(err.Error(), common.META_FAILED, data)
+	return map[string]interface{}{
+		"message": "File uploaded successfully.",
+		"code":    common.META_SUCCESS,
+		"data":    respData,
 	}
-
-	respData.SignedUrl = url
-
-	response := common.ResponseSuccessWithCode(message.FileUploadSuccess, respData)
-	return response
 }

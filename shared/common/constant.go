@@ -16,6 +16,13 @@ const (
 )
 
 const (
+	CONTENT_TYPE_TEXT     = 1
+	CONTENT_TYPE_IMAGE    = 2
+	CONTENT_TYPE_VEDIO    = 3
+	CONTENT_TYPE_DOCUMENT = 4
+)
+
+const (
 	META_SUCCESS = 1
 	META_FAILED  = 0
 )

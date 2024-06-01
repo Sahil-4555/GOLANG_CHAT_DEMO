@@ -34,7 +34,7 @@ This is a chat application where the backend is written in Golang, the frontend 
 1. Clone this repository:
 
     ```bash
-    git clone https://github.com/Sahil-4555/GOLANG_CHAT_DEMO.git
+    git clone https://github.com/your/repository.git
     ```
 2. Navigate to the project directory:
 

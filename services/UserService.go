@@ -6,14 +6,15 @@ import (
 
 	"time"
 
-	"github.com/Sahil-4555/mvc/configs/crypto"
-	"github.com/Sahil-4555/mvc/configs/database"
+	"chat-demo-golang/configs/crypto"
+	"chat-demo-golang/configs/database"
 
-	"github.com/Sahil-4555/mvc/models"
-	"github.com/Sahil-4555/mvc/shared/common"
-	"github.com/Sahil-4555/mvc/shared/log"
-	"github.com/Sahil-4555/mvc/shared/message"
-	"github.com/Sahil-4555/mvc/shared/utils"
+	"chat-demo-golang/models"
+	"chat-demo-golang/shared/common"
+	"chat-demo-golang/shared/log"
+	"chat-demo-golang/shared/message"
+	"chat-demo-golang/shared/utils"
+
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"golang.org/x/crypto/bcrypt"

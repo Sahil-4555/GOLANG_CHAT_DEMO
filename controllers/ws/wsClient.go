@@ -7,11 +7,12 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/Sahil-4555/mvc/configs/database"
-	"github.com/Sahil-4555/mvc/configs/middleware"
-	"github.com/Sahil-4555/mvc/models"
-	"github.com/Sahil-4555/mvc/shared/common"
-	"github.com/Sahil-4555/mvc/shared/log"
+	"chat-demo-golang/configs/database"
+	"chat-demo-golang/configs/middleware"
+	"chat-demo-golang/models"
+	"chat-demo-golang/shared/common"
+	"chat-demo-golang/shared/log"
+
 	"github.com/gorilla/websocket"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
@@ -363,15 +364,12 @@ func (client *Client) StoreInDB(message Message) primitive.ObjectID {
 	msg.ContentType = message.ContentType
 	msg.ReadBy = []primitive.ObjectID{senderId}
 
-	if message.ContentType == "text" || message.ContentType == "both" {
+	if message.ContentType == common.CONTENT_TYPE_TEXT {
 		msg.Content = message.Message
+	} else {
+		msg.FileName = message.FileName
 	}
-	if message.ContentType == "media" || message.ContentType == "both" {
-		msg.MediaUrl = message.MediaUrl
-	}
-	if message.ParentId != primitive.NilObjectID {
-		msg.ParentId = message.ParentId
-	}
+
 	msg.TimeStamp()
 	msg.NewID()
 
@@ -443,10 +441,15 @@ func (client *Client) HandleNotification(message Message) {
 	case DeleteMessage:
 		msg.Action = DeleteMessage
 		msg.Payload = message.Payload
+	case AddChannelOnAddingMember:
+		msg.Action = AddChannelOnAddingMember
+		msg.Target = message.Target
+		msg.Payload = message.Payload
 	}
 
 	for clients := range client.wsServer.clients {
 		_, ok := user[clients.Id]
+
 		if ok {
 			client.wsServer.broadcastToClient <- map[*Client]*Message{clients: &msg}
 		}

@@ -5,13 +5,15 @@ import (
 	"sort"
 	"time"
 
-	"github.com/Sahil-4555/mvc/configs/database"
-	"github.com/Sahil-4555/mvc/models"
-	"github.com/Sahil-4555/mvc/shared/common"
-	"github.com/Sahil-4555/mvc/shared/log"
-	"github.com/Sahil-4555/mvc/shared/message"
+	"chat-demo-golang/configs/database"
+	"chat-demo-golang/models"
+	"chat-demo-golang/shared/common"
+	"chat-demo-golang/shared/log"
+	"chat-demo-golang/shared/message"
+
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
+	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
 func SearchHandler(searchValue string, userId primitive.ObjectID) map[string]interface{} {
@@ -352,6 +354,7 @@ func GetMessagesByChannelId(channelId primitive.ObjectID, page, offset int) map[
 			"$project": bson.M{
 				"_id":          1,
 				"content_type": 1,
+				"file_name":    1,
 				"content":      1,
 				"created_at":   1,
 				"updated_at":   1,
@@ -375,6 +378,7 @@ func GetMessagesByChannelId(channelId primitive.ObjectID, page, offset int) map[
 			"$project": bson.M{
 				"_id":          1,
 				"content":      1,
+				"file_name":    1,
 				"content_type": 1,
 				"created_at":   1,
 				"updated_at":   1,
@@ -479,7 +483,9 @@ func GetAllUsers() map[string]interface{} {
 		"deleted_at": bson.M{"$eq": nil},
 	}
 
-	cursor, err := conn.UserCollection().Find(ctx, filter)
+	sort := options.Find().SetSort(bson.D{{Key: "name", Value: 1}})
+
+	cursor, err := conn.UserCollection().Find(ctx, filter, sort)
 	if err != nil {
 		log.GetLog().Info("ERROR(Query) : ", err.Error())
 		return map[string]interface{}{
@@ -529,9 +535,15 @@ func SearchUser(searchvalue string) map[string]interface{} {
 		{
 			"$project": bson.M{
 				"_id":       "$_id",
+				"status":    "$status",
 				"name":      "$name",
 				"email":     "$email",
 				"user_name": "$user_name",
+			},
+		},
+		{
+			"$sort": bson.M{
+				"name": 1,
 			},
 		},
 	}
@@ -622,6 +634,7 @@ func GetChannelMembers(Id primitive.ObjectID) map[string]interface{} {
 					"$push": bson.M{
 						"user_id":   "$user_details._id",
 						"name":      "$user_details.name",
+						"status":    "$user_details.status",
 						"user_name": "$user_details.user_name",
 						"email":     "$user_details.email",
 						"is_admin":  "$is_admin",

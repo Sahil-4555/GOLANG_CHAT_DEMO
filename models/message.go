@@ -16,8 +16,8 @@ type Message struct {
 	ChannelId   primitive.ObjectID   `json:"channel_id" bson:"channel_id" validate:"required"`
 	Content     string               `json:"content,omitempty" bson:"content,omitempty"`
 	ReadBy      []primitive.ObjectID `json:"read_by,omitempty" bson:"read_by,omitempty"`
-	ContentType string               `json:"content_type" bson:"content_type" validate:"required,oneof=text media both"`
-	MediaUrl    string               `json:"media_url,omitempty" bson:"media_url,omitempty"`
+	ContentType int                  `json:"content_type" bson:"content_type" validate:"required"`
+	FileName    string               `json:"file_name,omitempty" bson:"file_name,omitempty"`
 	ParentId    primitive.ObjectID   `json:"parent_id,omitempty" bson:"parent_id,omitempty"`
 	CreatedAt   time.Time            `json:"created_at" bson:"created_at"`
 	UpdatedAt   time.Time            `json:"updated_at" bson:"updated_at"`

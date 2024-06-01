@@ -5,8 +5,9 @@ import (
 
 	"time"
 
-	"github.com/Sahil-4555/mvc/shared/common"
-	"github.com/Sahil-4555/mvc/shared/log"
+	"chat-demo-golang/shared/common"
+	"chat-demo-golang/shared/log"
+
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
@@ -37,6 +38,7 @@ const (
 	DeleteMessage                  = "delete-message"
 	UserTyping                     = "user-typing"
 	UserStopTyping                 = "user-stop-typing"
+	AddChannelOnAddingMember       = "add-channel-on-adding-member"
 )
 
 type ClientsinRoomMessage struct { // we are using this to return list of clients to all clients in room when register unregister happens
@@ -59,10 +61,10 @@ type Message struct { // in readpump also can be used in writepump
 	Sender  *Client `json:"sender,omitempty"`  // whose readpump is used
 
 	/* This are the field for the send message */
-	ContentType string               `json:"content_type,omitempty"` // content type for the message
+	ContentType int                  `json:"content_type,omitempty"` // content type for the message
 	NotifyUsers []primitive.ObjectID `json:"notify_users,omitempty"` // userids which you want to notify.
 	ParentId    primitive.ObjectID   `json:"parent_id,omitempty"`    // parentid of the message if there for reply to the message
-	MediaUrl    string               `json:"media_url,omitempty"`    // media_url for the media sharing
+	FileName    string               `json:"file_name,omitempty"`    // media_url for the media sharing
 
 	/* This are the fields for the channel data and related notification sharing across the channel user joined */
 	NotificationType string                   `json:"notification_type,omitempty"`

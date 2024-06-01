@@ -19,6 +19,7 @@ type SearchHandlerResposne struct {
 type AllUserResponse struct {
 	Id       primitive.ObjectID `json:"_id,omitempty" bson:"_id,omitempty" structs:"_id"`
 	Name     string             `json:"name" bson:"name"  structs:"name"`
+	Status   int                `json:"status" bson:"status"`
 	Email    string             `json:"email" bson:"email" structs:"email"`
 	UserName string             `json:"user_name" bson:"user_name" structs:"user_name"`
 }
@@ -91,10 +92,9 @@ type GetChannelMembersReposne struct {
 type GetOnetoOneFavouriteChannelResponse struct {
 	ChannelId primitive.ObjectID `json:"_id" bson:"_id"`
 }
-
 type UploadMediaResponse struct {
-	FileName  string `bson:"file_name" json:"file_name" structs:"file_name"`
-	SignedUrl string `bson:"signed_url" json:"signed_url" structs:"signed_url"`
+	FileName     string `bson:"file_name" json:"file_name" structs:"file_name"`
+	PreSignedUrl string `bson:"pre_signed_url" json:"pre_signed_url" structs:"pre_signed_url"`
 }
 
 type GetMessagesByChannelIdResponse struct {

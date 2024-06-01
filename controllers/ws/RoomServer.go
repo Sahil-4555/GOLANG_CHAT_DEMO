@@ -3,10 +3,8 @@ package ws
 import (
 	"fmt"
 
-	"github.com/Sahil-4555/mvc/shared/log"
+	"chat-demo-golang/shared/log"
 )
-
-// var UnregisterDone = make(chan struct{})
 
 type Room struct {
 	name                    string           //name of the room

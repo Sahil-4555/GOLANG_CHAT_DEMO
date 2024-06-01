@@ -1,69 +1,43 @@
 package aws
 
 import (
-	"bytes"
-	"fmt"
-	"net/http"
 	"time"
 
-	"github.com/Sahil-4555/mvc/configs"
+	"chat-demo-golang/configs"
+	"chat-demo-golang/shared/log"
+
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/credentials"
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/s3"
 )
 
-func UploadToS3(key string, size int64, buffer []byte) error {
+func UploadToS3(key string) (string, error) {
 	accessKey := configs.AccessKey()
 	secret := configs.SecretKey()
 	region := configs.Region()
 	bucket := configs.Bucket()
-	s, err := session.NewSession(&aws.Config{
-		Credentials:      credentials.NewStaticCredentials(accessKey, secret, ""),
-		Region:           aws.String(region),
-		S3ForcePathStyle: aws.Bool(true),
-	})
 
-	if err != nil {
-		return err
-	}
-
-	_, err = s3.New(s).PutObject(&s3.PutObjectInput{
-		Bucket:               aws.String(bucket),
-		Key:                  aws.String(key),
-		ACL:                  aws.String("public-read"),
-		Body:                 bytes.NewReader(buffer),
-		ContentLength:        aws.Int64(size),
-		ContentType:          aws.String(http.DetectContentType(buffer)),
-		ContentDisposition:   aws.String("inline"),
-		ServerSideEncryption: aws.String("AES256"),
-	})
-	if err != nil {
-		return err
-	}
-	return nil
-}
-
-func GenerateSignedUrl(keyPath string, minutes time.Duration) (string, error) {
 	sess, err := session.NewSession(&aws.Config{
-		Region: aws.String(configs.Region()),
+		Credentials: credentials.NewStaticCredentials(accessKey, secret, ""),
+		Region:      aws.String(region),
 	})
+
 	if err != nil {
+		log.GetLog().Error("ERROR: ", err.Error())
 		return "", err
 	}
 
 	svc := s3.New(sess)
-
-	req, _ := svc.GetObjectRequest(&s3.GetObjectInput{
-		Bucket: aws.String(configs.Bucket()),
-		Key:    aws.String(keyPath),
+	resp, _ := svc.PutObjectRequest(&s3.PutObjectInput{
+		Bucket: aws.String(bucket),
+		Key:    aws.String(key),
 	})
-	urlStr, err := req.Presign(minutes * time.Hour)
 
+	url, err := resp.Presign(15 * time.Minute)
 	if err != nil {
-		fmt.Println("Failed to sign request", err)
+		log.GetLog().Error("ERROR: ", err.Error())
 		return "", err
 	}
-
-	return urlStr, nil
+	return url, nil
 }

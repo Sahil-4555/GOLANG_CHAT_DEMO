@@ -6,8 +6,9 @@ import (
 	"strings"
 	"time"
 
-	"github.com/Sahil-4555/mvc/configs/database"
-	"github.com/Sahil-4555/mvc/models"
+	"chat-demo-golang/configs/database"
+	"chat-demo-golang/models"
+
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"

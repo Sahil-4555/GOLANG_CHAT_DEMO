@@ -3,7 +3,8 @@ package configs
 import (
 	"os"
 
-	"github.com/Sahil-4555/mvc/shared/log"
+	"chat-demo-golang/shared/log"
+
 	"github.com/joho/godotenv"
 )
 

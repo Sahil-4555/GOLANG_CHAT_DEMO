@@ -3,8 +3,8 @@ package crypto
 import (
 	"time"
 
-	"github.com/Sahil-4555/mvc/configs/middleware"
-	"github.com/Sahil-4555/mvc/shared/log"
+	"chat-demo-golang/configs/middleware"
+	"chat-demo-golang/shared/log"
 )
 
 type UserTokenData struct {

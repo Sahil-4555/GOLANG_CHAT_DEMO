@@ -7,7 +7,7 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/Sahil-4555/mvc/shared/log"
+	"chat-demo-golang/shared/log"
 )
 
 func GracefulStop(log log.ILogger, callback func(context.Context) error) {

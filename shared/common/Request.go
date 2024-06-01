@@ -29,6 +29,19 @@ type CreateGroupReq struct {
 	Description string `json:"description,omitempty" bson:"description,omitempty"`
 }
 
+type UploadMediaData struct {
+	Key      string `bson:"key" json:"key" validate:"required"`
+	FileName string `bson:"file_name" json:"file_name" validate:"required"`
+	FileData []byte `bson:"file_data" json:"file_data" validate:"required"`
+	FileSize int64  `bson:"file_size" json:"file_size" validate:"required"`
+}
+
+type UploadMediaRequest struct {
+	FileName  string `bson:"file_name" json:"file_name" validate:"required"`
+	FileSize  int64  `bson:"file_size" json:"file_size" validate:"required"`
+	ChannelId string `bson:"channel_id" json:"channel_id" validate:"required"`
+}
+
 type AddMessagesReq struct {
 	Sender      string             `json:"sender" bson:"sender"`
 	ChannelId   primitive.ObjectID `json:"channel_id" bson:"channel_id"`

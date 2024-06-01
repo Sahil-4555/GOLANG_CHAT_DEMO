@@ -3,10 +3,10 @@ package main
 import (
 	"context"
 
-	"github.com/Sahil-4555/mvc/configs/database"
-	"github.com/Sahil-4555/mvc/routes"
-	"github.com/Sahil-4555/mvc/shared/log"
-	"github.com/Sahil-4555/mvc/shared/utils"
+	"chat-demo-golang/configs/database"
+	"chat-demo-golang/routes"
+	"chat-demo-golang/shared/log"
+	"chat-demo-golang/shared/utils"
 )
 
 // /*

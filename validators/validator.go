@@ -4,7 +4,9 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/Sahil-4555/mvc/models"
+	"chat-demo-golang/models"
+	"chat-demo-golang/shared/common"
+
 	"github.com/go-playground/validator"
 )
 
@@ -15,6 +17,17 @@ func GetError(field, tag string) string {
 		return field + " not valid"
 	}
 	return ""
+}
+
+func InArrayInt(val int, array []int) (exists bool) {
+	exists = false
+	for _, v := range array {
+		if val == v {
+			exists = true
+			return
+		}
+	}
+	return
 }
 
 func InArrayString(val string, array []string) (exists bool) {
@@ -89,8 +102,8 @@ func ValidateChannelStruct(req models.Channel) (string, bool) {
 
 func ValidateMessageStruct(req models.Message) (string, bool) {
 	errorString := ""
-	contentType := []string{"text", "media", "both"}
-	if !InArrayString(req.ContentType, contentType) {
+	contentType := []int{common.CONTENT_TYPE_TEXT, common.CONTENT_TYPE_IMAGE, common.CONTENT_TYPE_VEDIO, common.CONTENT_TYPE_DOCUMENT}
+	if !InArrayInt(req.ContentType, contentType) {
 		errorString = "Content type is missing or invalid"
 		return errorString, false
 	}

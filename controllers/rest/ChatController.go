@@ -4,12 +4,13 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/Sahil-4555/mvc/configs/middleware"
-	service "github.com/Sahil-4555/mvc/services"
-	"github.com/Sahil-4555/mvc/shared/common"
-	"github.com/Sahil-4555/mvc/shared/log"
-	"github.com/Sahil-4555/mvc/shared/message"
-	validators "github.com/Sahil-4555/mvc/validators"
+	"chat-demo-golang/configs/middleware"
+	service "chat-demo-golang/services"
+	"chat-demo-golang/shared/common"
+	"chat-demo-golang/shared/log"
+	"chat-demo-golang/shared/message"
+	validators "chat-demo-golang/validators"
+
 	"github.com/gin-gonic/gin"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
