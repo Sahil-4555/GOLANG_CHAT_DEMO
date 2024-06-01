@@ -1,0 +1,5 @@
+.env
+media
+logs
+docker-compose.yml
+Dockerfile

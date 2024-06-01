@@ -1,2 +1,3 @@
-# Chat Application Backend in Golang
+# Chat Demo - GoLang
 
+Backend in GoLang with gin

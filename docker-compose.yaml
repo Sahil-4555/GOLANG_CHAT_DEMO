@@ -1,0 +1,45 @@
+version: '3.8'
+
+services:
+  go-backend:
+    restart: always
+    build: .
+    ports:
+      - "5000:5000"
+    depends_on:
+      - db
+    command: go run .
+    networks:
+      - go-webapp-network
+
+  db:
+    image: mongo:latest
+    restart: always
+    ports:
+      - "27016:27017"
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=12345
+      - MONGO_INITDB_DATABASE=chat_app
+    volumes:
+      - db:/data/db
+    networks:
+      - go-webapp-network
+
+  react-frontend:
+    depends_on:
+      - go-backend
+    build:
+      context: ./chat_demo_reactjs
+      dockerfile: Dockerfile
+    command: npm start
+    ports:
+      - 3000:3000
+    networks:
+      - go-webapp-network
+
+volumes:
+  db:
+networks:
+  go-webapp-network:
+    driver: bridge
