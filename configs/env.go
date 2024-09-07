@@ -1,6 +1,7 @@
 package configs
 
 import (
+	"fmt"
 	"os"
 
 	"chat-demo-golang/shared/log"
@@ -14,13 +15,13 @@ func MongoURI() string {
 		log.GetLog().Info("ERROR : ", "Error loading .env file.")
 	}
 
-	// Host := os.Getenv("MONGODB_HOST")
-	// Username := os.Getenv("MONGODB_USER")
-	// Password := os.Getenv("MONGODB_PASSWORD")
-	// Port := os.Getenv("MONGODB_PORT")
-	// connectionString := fmt.Sprintf("mongodb://%s:%s@%s:%s", Username, Password, Host, Port)
-	// return connectionString
-	return os.Getenv("MONGO_URI")
+	Host := os.Getenv("MONGODB_HOST")
+	Username := os.Getenv("MONGODB_USER")
+	Password := os.Getenv("MONGODB_PASSWORD")
+	Port := os.Getenv("MONGODB_PORT")
+	connectionString := fmt.Sprintf("mongodb://%s:%s@%s:%s", Username, Password, Host, Port)
+	return connectionString
+	// return os.Getenv("MONGO_URI")
 }
 
 func Database() string {
