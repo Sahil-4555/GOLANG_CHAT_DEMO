@@ -20,10 +20,13 @@ This is a chat application where the backend is written in Golang, the frontend 
 ### 📋 Prerequisites
 
 #### For Docker
-- Docker installed on your machine.
-- Create a `.env` file in root directory based on `.env.example` and fill in the environment variable.
+
+- Install Docker on your machine.
+- In the project root, create a `.env` file based on `.example.env` and fill in the environment variables.
+- Inside the client folder, create a `.env` file based on `.example.env`.
 
 #### For Local
+
 - Golang installed on your machine.
 - Node.js and npm installed on your machine.
 - MongoDB installed and running on your machine.
@@ -33,22 +36,24 @@ This is a chat application where the backend is written in Golang, the frontend 
 
 1. Clone this repository:
 
-    ```bash
-    git clone https://github.com/your/repository.git
-    ```
+   ```bash
+   git clone https://github.com/Sahil-4555/GOLANG_CHAT_DEMO.git
+   ```
+
 2. Navigate to the project directory:
 
-    ```bash 
-    cd repository
-    ```
+   ```bash
+   cd GOLANG_CHAT_DEMO
+   ```
+
 #### Using Docker
 
 1. Create a .env file in the root directories of both the backend and frontend based on their respective .env.example files and fill in the environment variables.
 
 2. Start the application using Docker Compose:
-    ```bash 
-    docker-compose up
-    ```
+   ```bash
+   docker compose up --build
+   ```
 
 #### Running Locally
 
@@ -56,30 +61,32 @@ This is a chat application where the backend is written in Golang, the frontend 
 
 1. Navigate to the backend directory:
 
-    ```bash
-    cd backend
-    ```
+   ```bash
+   cd backend
+   ```
+
 2. Create a .env file in the root directory of the backend based on .env.example and fill in the environment variables.
 
 3. Install dependencies and run the backend:
 
-    ```bash
-    go mod tidy
-    go run main.go
-    ```
+   ```bash
+   go mod tidy
+   go run main.go
+   ```
 
 - Frontend
 
 1. Navigate to the frontend directory:
 
-    ```bash
-    cd frontend
-    ```
+   ```bash
+   cd frontend
+   ```
+
 2. Create a .env file in the root directory of the frontend based on .env.example and fill in the environment variables.
 
 3. Install dependencies and run the frontend:
 
-    ```bash
-    npm install
-    npm start
-    ```
+   ```bash
+   npm install
+   npm start
+   ```

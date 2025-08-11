@@ -1,0 +1,390 @@
+.user-list-container {
+    background-color: #142b5cfa;
+    width: 25%;
+    max-width: 300px;
+    position: fixed;
+    position: relative;
+    height: 100%;
+    z-index: 1;
+    transition-property: transform;
+    transition-duration: 0.5s;
+    transition-timing-function: ease-in-out;
+    transform: translateX(0);
+    width: 100%;
+}
+
+.user-list-container.translate-x-0 {
+    transform: translateX(0);
+}
+
+.user-list-container.translate-x-full {
+    transform: translateX(-100%);
+}
+
+.divison-border {
+    padding: 1rem;
+    height: 4rem;
+    border-bottom-width: 4px;
+    border-bottom-color: #7d7f83;
+    /* @apply p-4 h-16 border-b-4 border-b-[#7d7f83] */
+}
+
+.username-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* @apply flex justify-between items-center */
+}
+
+.username-modal {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+    font-weight: 700;
+    /* @apply flex justify-between items-center */
+}
+
+.add-channel-container {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    /* @apply flex items-center cursor-pointer; */
+}
+
+.add-icon {
+    font-size: 1.5rem;
+    line-height: 2rem;
+    font-weight: 700;
+    color: rgb(255 255 255);
+    cursor: pointer;
+    /* @apply text-2xl text-500 font-bold text-white cursor-pointer */
+}
+
+.add-channel-modal {
+    font-size: 1.05rem;
+    display: flex;
+    align-items: center;
+    font-weight: 500;
+    font-weight: bold;
+    margin-left: 0.5rem;
+    padding-top: 0.25rem;
+    color: white;
+    /* @apply text-1xl flex items-center text-500 font-bold ml-2 pt-1 text-white; */
+}
+
+.user-list-modal {
+    display: flex;
+    padding: 1rem;
+    flex-direction: column;
+    height: calc(100vh - 128px);
+    /* @apply p-4 flex flex-col h-[calc(100vh-128px)] */
+}
+
+.user-list-modal-wrapper {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    /* @apply flex-1 overflow-y-auto overflow-x-hidden scrollbar scrollbar-w-2 scrollbar-thumb-gray-300 scrollbar-thumb-rounded-lg; */
+}
+
+.user-list-modal-wrapper.scrollbar {
+    scrollbar-width: thin;
+}
+
+.user-list-modal-wrapper::-webkit-scrollbar {
+    width: 2px;
+}
+
+.user-list-modal-wrapper::-webkit-scrollbar-thumb {
+    background-color: #d1d5db;
+    border-radius: 0.5rem;
+}
+
+.channel-dropdown {
+    padding-bottom: 0.5rem;
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    cursor: pointer;
+    /* @apply pb-2 flex gap-2 items-center cursor-pointer */
+}
+
+.channel-title {
+    font-size: 1.125rem;
+    line-height: 1.75rem;
+    font-weight: 600;
+    color: rgb(156 163 175);
+    /* @apply text-lg font-semibold text-gray-400 hover:text-white */
+}
+
+.channel-title:hover {
+    color: white;
+}
+
+.channel-list-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 0.25rem;
+    margin-top: 0.25rem;
+    cursor: pointer;
+    border-radius: 0.25rem;
+    /* @apply relative flex items-center p-1 mt-1 cursor-pointer rounded group; */
+
+}
+
+.channel-list-container.hide-channels {
+    display: none;
+}
+
+.channel-list-container.selected-channel {
+    background-color: #3b82f6;
+    color: white;
+}
+
+.channel-list-container.hover-over-channel:hover {
+    background-color: rgb(209 213 219);
+    color: black;
+}
+
+.channel-list-group-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    margin-top: 4px;
+    border-radius: 0.25rem;
+    /* @apply relative flex flex-col mt-1 cursor-pointer rounded group; */
+
+}
+
+.channel-list-group-container.hide-channels {
+    display: none;
+}
+
+.channel-list-group-container.selected-channel {
+    background-color: #3b82f6;
+    color: white;
+}
+
+.channel-list-group-container.hover-over-channel:hover {
+    background-color: #d1d5db;
+    color: black;
+}
+
+.channel-avatar-one-to-one {
+    position: relative;
+    border-radius: 9999px;
+    height: 0.70rem;
+    width: 0.70rem;
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #6b7280;
+    /* @apply relative rounded-full h-3 w-3 p-3 flex items-center justify-center bg-gray-500 group-hover:bg-gray-400 */
+}
+
+.group:hover .channel-avatar-one-to-one {
+    background-color: #9ca3af;
+}
+
+.channel-avatar-one-to-one.isChannel {
+    color: white;
+}
+
+.channel-avatar-one-to-one.isChannel:hover {
+    color: black;
+}
+
+.user-status-icon {
+    position: absolute;
+    top: 19px;
+    left: 14px;
+    font-size: 0.75rem;
+    color: white;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    padding-top: 0.30rem;
+    padding-bottom: 0.25rem;
+    border-radius: 9999px;
+    /* @apply absolute top-[10px] right-[-14px] text-xs text-white px-2 py-1 rounded-full */
+}
+
+.userStatusOnlineUserList {
+    width: 0.65rem;
+    height: 0.65rem;
+    border-radius: 50%;
+    background-color: #64da35;
+    /* @apply w-3 h-3 rounded-full bg-green-500; */
+}
+
+.userStatusAwayUserList {
+    width: 0.65rem;
+    height: 0.65rem;
+    border-radius: 50%;
+    background-color: #fcd34d;
+    /* @apply w-3 h-3 rounded-full bg-amber-300; */
+}
+
+.userStatusDonotDisturbUserList {
+    width: 0.65rem;
+    height: 0.65rem;
+    border-radius: 50%;
+    background-color: #dc2626;
+    /* @apply w-3 h-3 rounded-full bg-red-600; */
+}
+
+.userStatusOfflineUserList {
+    width: 0.65rem;
+    height: 0.65rem;
+    border-radius: 50%;
+    background-color: rgb(249, 115, 22);
+    /* @apply w-3 h-3 rounded-full bg-orange-500; */
+}
+
+.channel-list-channelname {
+    font-size: 0.9rem;
+    line-height: 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    /* @apply text-sm flex items-center justify-between w-full */
+}
+
+.channel-message-count {
+    background-color: #60a5fa;
+    color: white;
+    border-radius: 9999px;
+    font-size: 0.9rem;
+    width: 1.4rem;
+    height: 1.4rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* @apply bg-blue-400 group-hover:hidden text-white rounded-full w-6 h-6 flex justify-center items-center; */
+}
+
+.channel-message-count.group:hover {
+    display: none;
+}
+
+.menu-container {
+    position: relative;
+    display: inline-block;
+    text-align: left;
+    /* @apply relative inline-block text-left */
+}
+
+.menu-icon-three-dots {
+    display: inline-flex;
+    width: 100%;
+    justify-content: center;
+    border-radius: 0.375rem;
+    padding: 0.25rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: white;
+    cursor: pointer;
+    /* @apply inline-flex w-full justify-center rounded-md  p-1 text-sm font-medium text-white cursor-pointer */
+}
+
+.menu-items {
+    z-index: 2;
+    position: absolute;
+    right: 0;
+    margin-top: 0.5rem;
+    width: 12rem;
+    transform-origin: top right;
+    border-top-width: 1px;
+    border-color: rgba(209, 213, 219, 1);
+    border-radius: 0.375rem;
+    background-color: white;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    outline: 2px solid transparent;
+    outline-color: rgba(0, 0, 0, 0.1);
+    outline-offset: 2px;
+    /* @apply z-[2] absolute right-0 mt-2 w-48 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black/5 focus:outline-none; */
+}
+
+.active-menu {
+    display: flex;
+    gap: 0.75rem;
+    width: 100%;
+    align-items: center;
+    border-radius: 0.375rem;
+    padding: 0.5rem;
+    font-size: 0.875rem;
+}
+
+.active-menu.activated {
+    background-color: #3b82f6;
+    color: #ffff;
+}
+
+.active-menu.deactivated {
+    color: #000103;
+}
+
+.channel-avatar-group-channel {
+    display: flex;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    padding: 0.25rem;
+
+    display: flex;
+    /* background-color: #6b7280; */
+    /* @apply flex items-center p-1; */
+}
+
+.direct-message-modal {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 0.25rem;
+    margin-bottom: 0.25rem;
+    /* @apply flex justify-between my-1 */
+}
+
+.logout-icon {
+    width: 1.5rem;
+    height: 1.5rem;
+    font-weight: 500;
+    font-size: 1.5rem;
+    line-height: 2rem;
+    color: rgb(255 255 255);
+    cursor: pointer;
+    /* @apply w-6 h-6 text-2xl text-500 text-white cursor-pointer */
+}
+
+.logout-button-container {
+    position: fixed;
+    width: 100%;
+    bottom: 1rem;
+    padding: 1rem;
+    height: 3.5rem;
+    border-top-width: 4px;
+    border-top-color: #7d7f83;
+    /* @apply fixed w-full bottom-4 p-4 h-14 border-t-4 border-t-[#7d7f83] */
+}
+
+.logout-button-wrapper {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    margin-left: 1rem;
+    /* @apply flex items-center cursor-pointer; */
+}
+
+.logout-button-text {
+    font-size: 1.1rem;
+    align-items: center;
+    text-align: center;
+    font-weight: bold;
+    margin-left: 0.5rem;
+    padding-top: 0.25rem;
+    color: white;
+    /* @apply text-1xl flex items-center text-center text-500 font-bold ml-2 pt-1 text-white; */
+}

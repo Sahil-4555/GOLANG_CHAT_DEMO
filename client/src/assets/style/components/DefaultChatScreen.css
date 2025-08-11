@@ -1,0 +1,70 @@
+@keyframes gradient {
+    0%, 100% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes bounceSlow {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-15px);
+    }
+}
+
+.default-chat-screen {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    padding: 24px;
+    background: linear-gradient(90deg, rgb(252, 253, 253), rgb(252, 253, 253));
+    animation: gradient 15s ease infinite;
+}
+
+.welcome-text-container {
+    text-align: center;
+    margin-bottom: 40px;
+    animation: fadeIn 2s ease-out;
+}
+
+.welcome-title {
+    font-size: 36px;
+    font-weight: 800;
+    color: #142b5cfa;
+    margin-bottom: 16px;
+}
+
+.welcome-subtitle {
+    font-size: 18px;
+    color: #142b5cfa;
+}
+
+.icon-container-default-screen {
+    margin-top: 40px;
+    animation: fadeIn 2s ease-out 1s forwards;
+}
+
+.chat-icon {
+    width: 150px;
+    height: 150px;
+    color: #142b5cfa;
+    animation: bounceSlow 3s infinite;
+    filter: drop-shadow(0px 4px 6px rgba(0, 0, 0, 0.1));
+}

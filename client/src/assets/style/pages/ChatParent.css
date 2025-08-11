@@ -1,0 +1,18 @@
+.chatParentContainer {
+    display: flex;
+    flex-direction: column;
+    /* @apply flex flex-col md:flex-row h-screen; */
+}
+
+@media (min-width: 768px) {
+    .chatParentContainer {
+        flex-direction: row;
+    }
+}
+
+html,
+body,
+.chatParentContainer {
+    height: 100vh;
+
+}

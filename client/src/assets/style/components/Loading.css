@@ -1,0 +1,35 @@
+.loader-container {
+    background-color: rgba(255, 255, 255, 0.5);
+    opacity: 0.5;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* @apply bg-white opacity-50 w-full flex justify-center items-center; */
+}
+
+.loader {
+    width: 3rem;
+    height: 3rem;
+    fill: #cbd5e0;
+    animation: spin 1s linear infinite;
+    /* @apply inline w-12 h-12 text-gray-200 animate-spin dark:text-gray fill-blue-600; */
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.dark .loader {
+    fill: #374151;
+}
+
+.fill-blue .loader {
+    fill: #3b82f6;
+}

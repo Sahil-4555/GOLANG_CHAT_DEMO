@@ -1,0 +1,80 @@
+.dialog-container {
+    position: fixed;
+    inset: 0px;
+    z-index: 50;
+    overflow-y: auto;
+    /* @apply fixed inset-0 z-50 overflow-y-auto; */
+}
+
+.dialog-container-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    /* @apply flex items-center justify-center min-h-screen */
+}
+
+.dialog-overlay {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 1);
+    /* @apply fixed inset-0 bg-black bg-opacity-100; */
+}
+
+.icon-container {
+    position: relative;
+    z-index: 50;
+    margin: 1rem;
+    background-color: black;
+    padding: 1rem;
+    width: 100%;
+    height: 100%;
+    max-width: 1280px;
+    margin-left: auto;
+    margin-right: auto;
+    overflow: hidden;
+    /* @apply relative z-50 m-4 bg-black p-4 w-full h-full max-w-screen-xl mx-auto overflow-hidden */
+}
+
+.icon-container-wrapper {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    display: flex;
+    gap: 0.5rem;
+    /* @apply absolute top-4 right-4 flex space-x-2 */
+}
+
+.dialog-title-vedio {
+    font-size: 1.125rem;
+    line-height: 1.75rem;
+    font-weight: 700;
+    color: rgb(255 255 255);
+    /* @apply text-lg font-bold leading-2 text-white */
+}
+
+.dialog-description-vedio {
+    margin-bottom: 1.25rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    line-height: 1.25;
+    color: #a1a1a1;
+    /*  @apply mb-5 text-sm font-semibold leading-2 text-gray-400 */
+}
+
+.vedio-url-container {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    /* @apply w-full h-full overflow-hidden; */
+}
+
+.vedio-url-container-wrapper {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* @apply w-full h-full object-cover; */
+}

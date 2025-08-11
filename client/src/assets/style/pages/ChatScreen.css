@@ -1,0 +1,554 @@
+.chatMessages {
+    @media (min-width: 768px) {
+        flex: 1 1 0%;
+    }
+
+    /* @apply md:flex-1 border-l border-gray-300 h-full; */
+}
+
+
+
+.headerContainer {
+    height: 4rem;
+    border-bottom-width: 4px;
+    border-bottom-color: #7d7f83    ;
+    display: flex;
+    position: relative;
+    align-items: center;
+    /* @apply h-16 border-b-4 flex relative items-center; */
+}
+
+.channelName {
+    font-size: 1.125rem;
+    font-weight: 600;
+    margin: auto;
+    /* @apply text-lg font-semibold m-auto; */
+}
+
+.channelUsers {
+    margin: auto;
+    padding: 0.75rem;
+    position: absolute;
+    right: 1rem;
+    background-color: #142b5cfa;
+    border-radius: 0.75rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    color: white;
+    /* @apply m-auto p-3 absolute right-4 bg-[#182f5f] rounded-xl cursor-pointer flex items-center gap-1 text-white; */
+}
+
+.iconSize {
+    width: 1rem;
+    height: 1rem;
+    /* @apply w-4 h-4; */
+}
+
+.chatScreenContainer {
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 64px);
+    padding: 1rem;
+    /* @apply flex flex-col h-[calc(100vh-64px)] p-4; */
+}
+
+.spinner {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    animation: spin 2s linear infinite;
+    margin-left: auto;
+    margin-right: auto;
+    border-width: 2px;
+    border-style: solid;
+    border-color: transparent blue;
+    /* @apply w-12 h-12 rounded-full animate-spin mx-auto border-x-2 border-solid border-blue-500 border-t-transparent; */
+}
+
+@keyframes spin {
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.chatHistoryContainer {
+    flex: 1;
+    overflow-y: auto;
+    margin-bottom: 1rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    /* @apply flex-1 overflow-y-auto mb-4 px-4 scrollbar scrollbar-w-2 scrollbar-thumb-gray-300 scrollbar-thumb-rounded-lg; */
+}
+
+
+.chatHistoryContainer::-webkit-scrollbar {
+    width: 2px;
+}
+
+.chatHistoryContainer::-webkit-scrollbar-thumb {
+    background-color: #d1d5db;
+    border-radius: 0.5rem;
+}
+
+
+.messageContent {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    width: 100%;
+    gap: 18px;
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
+    /* @apply flex items-start justify-start w-full gap-[18px] py-1; */
+}
+
+.dateContainer {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 1.125rem;
+    padding: 0.25rem;
+    position: relative;
+    /* @apply flex items-start justify-start group gap-[18px] p-1 relative  */
+}
+
+.dateDivider {
+    color: #7a806b;
+    width: 100%;
+    text-align: center;
+    border-color: #837d7d;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    display: flex;
+    align-items: center;
+    /* @apply text-gray-500 w-full text-center border-gray-300 px-2 flex items-center; */
+}
+
+.dateDividerLine {
+    height: 0;
+    width: 100%;
+    display: block;
+    border: 1px solid #d1d5db;
+    /* @apply h-0 w-full block border border-gray-300; */
+}
+
+.dateSpacing {
+    height: 0;
+    width: 100%;
+    display: block;
+    border: 1px solid #d1d5db;
+    /* @apply h-0 w-full block border border-gray-300; */
+}
+
+.avatarContainer {
+    position: relative;
+    border-radius: 50%;
+    height: 2.5rem;
+    width: 2.5rem;
+    font-size: 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f0f8ff;
+    border-color: #3b82f6;
+    border-width: 2px;
+    text-transform: uppercase;
+    /* @apply relative rounded-full h-10 w-10 text-xl flex items-center justify-center bg-[#f0f8ff] border-blue-600 border-2 uppercase; */
+}
+
+.userStatus {
+    position: absolute;
+    top: 22px;
+    left: 18px;
+    font-size: 0.75rem;
+    color: white;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
+    border-radius: 9999px;
+    /*@apply absolute top-[22px] left-[18px] text-xs text-white px-2 py-1 rounded-full; */
+}
+
+.userStatusOnline {
+    width: 0.75rem;
+    height: 0.75rem;
+    border-radius: 50%;
+    background-color: #64da35;
+    /* @apply w-3 h-3 rounded-full bg-green-500; */
+}
+
+.userStatusAway {
+    width: 0.75rem;
+    height: 0.75rem;
+    border-radius: 50%;
+    background-color: #fcd34d;
+    /* @apply w-3 h-3 rounded-full bg-amber-300; */
+}
+
+.userStatusDonotDisturb {
+    width: 0.75rem;
+    height: 0.75rem;
+    border-radius: 50%;
+    background-color: #dc2626;
+    /* @apply w-3 h-3 rounded-full bg-red-600; */
+}
+
+.userStatusOffline {
+    width: 0.75rem;
+    height: 0.75rem;
+    border-radius: 50%;
+    background-color: rgb(249, 115, 22);
+    /* @apply w-3 h-3 rounded-full bg-orange-500; */
+}
+
+.messageDetails {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    width: 100%;
+    /* @apply flex flex-col gap-0 w-full; */
+}
+
+.messageUser {
+    max-width: 100%;
+    /* @apply w-max; */
+}
+
+.messageUserName {
+    font-size: 1rem;
+    color: #6b7280;
+    margin-right: 0.375rem;
+    text-transform: capitalize;
+    /* @apply text-base text-gray-500 mr-1.5 capitalize; */
+}
+
+.messageTime {
+    font-size: 0.75rem;
+    color: #73806b;
+    /* @apply text-xs text-gray-500; */
+}
+
+.messageText {
+    display: flex;
+    align-items: flex-start;
+    width: 100%;
+    /* @apply flex items-start w-full; */
+}
+
+.messageTimestamp {
+    font-size: 0.75rem;
+    margin-right: 0.25rem;
+    min-width: 53px;
+    max-width: 53px;
+    margin-top: 0.25rem;
+    color: #000;
+    /* @apply text-xs mr-1 min-w-[53px] max-w-[53px] mt-1 text-black invisible group-hover:visible */
+}
+
+.messageTimestamp.invisible {
+    visibility: hidden;
+}
+
+.group:hover .messageTimestamp.group-hover\:visible {
+    visibility: visible;
+}
+
+.messageContentText {
+    width: 100%;
+    /* @apply w-full; */
+}
+
+.editedMessage {
+    font-size: 0.75rem;
+    color: #6b7280;
+    /* @apply text-xs text-gray-500; */
+}
+
+.systemMessage {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    /* @apply flex items-center justify-between; */
+}
+
+.mediaContainer {
+    display: flex;
+    align-items: flex-start;
+    width: 100%;
+    /* @apply flex items-start w-full; */
+}
+
+.uploadedFile {
+    display: flex;
+    width: 18rem;
+    margin-bottom: 0.5rem;
+    max-height: 5rem;
+    border: 1px solid #3b82f6;
+    border-radius: 0.375rem;
+    position: relative;
+    padding: 0.5rem;
+    padding-right: 0;
+    /* @apply flex w-72 mb-2 max-h-20 border border-solid border-blue-500 rounded-md relative p-2 pr-0; */
+}
+
+.file-details {
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
+    /* @apply w-4/5 flex justify-between; */
+}
+
+.file-name {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #6b7280;
+    margin-left: 0.5rem;
+    margin-top: 0.5rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    /* @apply text-sm font-medium text-gray-500 ml-2 mt-2 truncate; */
+}
+
+.downloadButton {
+    display: flex;
+    align-items: center;
+    color: #6b7280;
+    /* @apply flex items-center text-gray-500; */
+}
+
+.arrowDownIcon {
+    height: 1.25rem;
+    width: 1.25rem;
+    margin-left: 0.5rem;
+    /* @apply h-5 w-5 ml-2; */
+}
+
+.messageMethods {
+    display: none;
+    position: absolute;
+    right: 0;
+    background-color: rgba(107, 114, 128, 0.7);
+    border-radius: 0.375rem;
+    margin-right: 0.25rem;
+    cursor: pointer;
+    /*  @apply hidden group-hover:flex absolute right-0 bg-gray-500 bg-opacity-70 rounded mr-1; */
+}
+
+.group:hover .messageMethods {
+    display: flex;
+}
+
+.messageOptions {
+    display: flex;
+    gap: 0.5rem;
+    padding: 0.25rem 0.5rem;
+    border: 1px solid #d1d5db;
+    border-radius: 0.375rem;
+    /* @apply flex gap-2 px-2 py-1 border border-solid border-gray-500 rounded; */
+}
+
+.popupEditor {
+    width: 100%;
+    padding: 0.25rem 0.5rem;
+    /* @apply w-full px-2 py-1; */
+}
+
+.editorContainer {
+    font-size: 0.75rem;
+    margin-right: 0.5rem;
+    min-width: 53px;
+    max-width: 53px;
+    margin-top: 0.25rem;
+    color: #000;
+    visibility: hidden;
+    /* @apply text-xs mr-2 min-w-[53px] max-w-[53px] mt-1 text-black invisible group-hover:visible; */
+}
+
+.group:hover .editorContainer {
+    visibility: visible;
+}
+
+.editorButton {
+    margin-top: 0.75rem;
+    display: flex;
+    justify-content: flex-start;
+    width: auto;
+    /* @apply mt-3 flex justify-start w-auto; */
+}
+
+.saveEditorButton {
+    display: inline-flex;
+    width: auto;
+    justify-content: center;
+    border-radius: 0.375rem;
+    background-color: #2563eb;
+    padding: 0.5rem 1.25rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #fff;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    transition: background-color 0.3s ease;
+    /* @apply inline-flex w-auto justify-center rounded-md bg-blue-600 px-5 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 sm:col-start-2 disabled:opacity-50; */
+}
+
+.saveEditorButton:hover {
+    background-color: #1c4db7;
+}
+
+.saveEditorButton:focus-visible {
+    outline: 2px solid #2563eb;
+    outline-offset: 2px;
+}
+
+.saveEditorButton[disabledButton] {
+    opacity: 0.5;
+}
+
+@media (min-width: 640px) {
+    .saveEditorButton {
+        grid-column-start: 2;
+    }
+}
+
+.cancelEditorButton {
+    margin-top: 0.75rem;
+    display: inline-flex;
+    width: auto;
+    margin-left: 1.25rem;
+    justify-content: center;
+    border-radius: 0.375rem;
+    background-color: #fff;
+    padding: 0.5rem 1.25rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #111827;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    border: 1px solid #d1d5db;
+    border-style: inset;
+    border-color: #e5e7eb;
+    transition: background-color 0.3s ease;
+    /* @apply mt-3 inline-flex w-auto ml-5 justify-center rounded-md bg-white px-5 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:col-start-1 sm:mt-0; */
+}
+
+.cancelEditorButton:hover {
+    background-color: #f3f4f6ef;
+}
+
+@media (min-width: 640px) {
+    .cancelEditorButton {
+        grid-column-start: 1;
+        margin-top: 0;
+    }
+}
+
+.startConversation {
+    height: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-end;
+    /* @apply h-full flex justify-start items-end; */
+}
+
+.sendMediaMessage {
+    display: flex;
+    width: 20rem;
+    margin-bottom: 0.5rem;
+    max-height: 5rem;
+    border: 1px solid #3b82f6;
+    border-radius: 0.375rem;
+    position: relative;
+    padding: 0.5rem;
+    /* @apply flex w-80 mb-2 max-h-20 border border-solid border-blue-500 rounded-md relative p-2; */
+}
+
+.selectedMediaName {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #6b7280;
+    margin-left: 0.5rem;
+    margin-top: 0.25rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    /* @apply text-sm font-medium text-gray-500 ml-2 mt-1 truncate; */
+}
+
+.selectedMediaDetails {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #6b7280;
+    margin-left: 0.5rem;
+    max-width: 60%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    /* @apply text-sm font-medium text-gray-500 ml-2 max-w-[60%] truncate; */
+}
+
+.mediaLoaderStyle {
+    max-width: 70%;
+    background-color: #d1d5db;
+    height: 1rem;
+    position: relative;
+    margin-left: 0.5rem;
+    /* @apply max-w-[70%] bg-gray-300 h-4 relative ml-2; */
+}
+
+.mediaUploadProgress {
+    background-color: #3b82f6;
+    height: 100%;
+    position: absolute;
+    /* @apply bg-blue-500 h-full absolute; */
+}
+
+.mediaUploadProgressText {
+    text-align: center;
+    color: #fff;
+    font-size: 0.875rem;
+    position: absolute;
+    width: 100%;
+    /* @apply text-center text-white text-sm absolute w-full; */
+}
+
+.submitEditorButton {
+    background-color: #3b82f6;
+    color: #fff;
+    font-weight: bold;
+    padding: 0.375rem 0.375rem;
+    border-top-right-radius: 0.375rem;
+    border-bottom-right-radius: 0.375rem;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    /* @apply bg-blue-500 hover:bg-blue-700 text-white font-bold p-1.5 rounded-r flex items-center cursor-pointer disabled:bg-blue-200; */
+}
+
+.submitEditorButton:hover {
+    background-color: #2d66e2;
+}
+
+.submitEditorButton[disabled] {
+    background-color: #a5b4fc;
+    cursor: not-allowed;
+}
+
+.editorBlock {
+    display: flex;
+    gap: 0.25rem;
+    align-items: flex-end;
+    /* @apply flex gap-1 items-end; */
+}
+
+.edit-message-editor {
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgb(107 114 128);
+    border-radius: 0.25rem;
+    width: 100%;
+    padding: 0.75rem;
+    /* @apply border border-solid border-gray-500 rounded w-full p-3 */
+}
