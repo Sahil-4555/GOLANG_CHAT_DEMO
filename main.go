@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 
+	"chat-demo-golang/configs/bootstrap"
 	"chat-demo-golang/configs/database"
 	"chat-demo-golang/routes"
 	"chat-demo-golang/shared/log"
@@ -27,6 +28,8 @@ func main() {
 
 	database.Init()
 	log.GetLog().Info("", "DB connected")
+
+	bootstrap.LoadDummyUsers()
 
 	go routes.Run()
 

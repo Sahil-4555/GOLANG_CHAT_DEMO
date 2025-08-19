@@ -1,0 +1,157 @@
+[
+  {
+    "username": "walterwhite",
+    "name": "Walter White",
+    "email": "walter.white@breakingbad.com",
+    "password": "Heisenberg123"
+  },
+  {
+    "username": "jessepinkman",
+    "name": "Jesse Pinkman",
+    "email": "jesse.pinkman@breakingbad.com",
+    "password": "YeahScience!"
+  },
+  {
+    "username": "gustavofring",
+    "name": "Gustavo Fring",
+    "email": "gus.fring@breakingbad.com",
+    "password": "LosPollos321"
+  },
+  {
+    "username": "saulgoodman",
+    "name": "Saul Goodman",
+    "email": "saul.goodman@breakingbad.com",
+    "password": "BetterCallMe!"
+  },
+
+  {
+    "username": "tonystark",
+    "name": "Tony Stark",
+    "email": "tony.stark@avengers.com",
+    "password": "IronMan3000"
+  },
+  {
+    "username": "steverogers",
+    "name": "Steve Rogers",
+    "email": "steve.rogers@avengers.com",
+    "password": "Captain@Shield"
+  },
+  {
+    "username": "natasharomanoff",
+    "name": "Natasha Romanoff",
+    "email": "natasha.romanoff@avengers.com",
+    "password": "BlackWidow007"
+  },
+  {
+    "username": "thorodinson",
+    "name": "Thor Odinson",
+    "email": "thor@avengers.com",
+    "password": "Mjolnir123"
+  },
+  {
+    "username": "brucebanner",
+    "name": "Bruce Banner",
+    "email": "bruce.banner@avengers.com",
+    "password": "HulkSmash!"
+  },
+  {
+    "username": "clintbarton",
+    "name": "Clint Barton",
+    "email": "clint.barton@avengers.com",
+    "password": "Hawkeye2020"
+  },
+
+  {
+    "username": "tommyshelby",
+    "name": "Tommy Shelby",
+    "email": "tommy.shelby@peakyblinders.com",
+    "password": "PeakyBlinders!"
+  },
+  {
+    "username": "arthurshelby",
+    "name": "Arthur Shelby",
+    "email": "arthur.shelby@peakyblinders.com",
+    "password": "Arthur1919"
+  },
+  {
+    "username": "pollygray",
+    "name": "Polly Gray",
+    "email": "polly.gray@peakyblinders.com",
+    "password": "FamilyFirst"
+  },
+
+  {
+    "username": "jonsnow",
+    "name": "Jon Snow",
+    "email": "jon.snow@got.com",
+    "password": "IKnowNothing"
+  },
+  {
+    "username": "daenerystargaryen",
+    "name": "Daenerys Targaryen",
+    "email": "daenerys@got.com",
+    "password": "DragonQueen"
+  },
+  {
+    "username": "tyrionlannister",
+    "name": "Tyrion Lannister",
+    "email": "tyrion.lannister@got.com",
+    "password": "SmallLion"
+  },
+  {
+    "username": "aryastark",
+    "name": "Arya Stark",
+    "email": "arya.stark@got.com",
+    "password": "NoOne123"
+  },
+  {
+    "username": "cerseilannister",
+    "name": "Cersei Lannister",
+    "email": "cersei.lannister@got.com",
+    "password": "QueenRegent"
+  },
+
+  {
+    "username": "himmat",
+    "name": "Himmat Singh",
+    "email": "himmat.singh@specialops.com",
+    "password": "SpecialOps1"
+  },
+  {
+    "username": "farooq",
+    "name": "Farooq Ali",
+    "email": "farooq.ali@specialops.com",
+    "password": "SpecialOps2"
+  },
+  {
+    "username": "avinashtiwary",
+    "name": "Avinash Tiwary",
+    "email": "avinash.tiwary@specialops.com",
+    "password": "OpsAgent3"
+  },
+
+  {
+    "username": "michael",
+    "name": "Michael Scofield",
+    "email": "michael.scofield@prisonbreak.com",
+    "password": "FoxRiver1"
+  },
+  {
+    "username": "lincoln",
+    "name": "Lincoln Burrows",
+    "email": "lincoln.burrows@prisonbreak.com",
+    "password": "InnocentMan"
+  },
+  {
+    "username": "tbag",
+    "name": "Theodore Bagwell",
+    "email": "tbag@prisonbreak.com",
+    "password": "FoxRiverSnake"
+  },
+  {
+    "username": "sarah",
+    "name": "Sara Tancredi",
+    "email": "sara.tancredi@prisonbreak.com",
+    "password": "DoctorLove"
+  }
+]
