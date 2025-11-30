@@ -59,15 +59,9 @@ This is a chat application where the backend is written in Golang, the frontend 
 
 - Backend
 
-1. Navigate to the backend directory:
+1. Create a `.env` file in the root directory of the backend based on .env.example and fill in the environment variables.
 
-   ```bash
-   cd backend
-   ```
-
-2. Create a .env file in the root directory of the backend based on .env.example and fill in the environment variables.
-
-3. Install dependencies and run the backend:
+2. Install dependencies and run the backend:
 
    ```bash
    go mod tidy
@@ -79,7 +73,7 @@ This is a chat application where the backend is written in Golang, the frontend 
 1. Navigate to the frontend directory:
 
    ```bash
-   cd frontend
+   cd client
    ```
 
 2. Create a .env file in the root directory of the frontend based on .env.example and fill in the environment variables.
